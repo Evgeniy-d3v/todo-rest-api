@@ -1,0 +1,35 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todo-rest-api
+    container_name: php-todo-rest-api
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - todo-rest-api-network
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-todo-rest-api
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00t
+      MYSQL_DATABASE: todo_rest_api
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    networks:
+      - todo-rest-api-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+networks:
+    todo-rest-api-network:
+      driver: bridge
+volumes:
+  mysql_data:
