@@ -39,13 +39,13 @@ class TagRepository implements TagRepositoryInterface
 
     public function storeTag(StoreTagDto $storeTaskDto): TagEntity
     {
-        try {
+//        try {
             $task = Tag::create([
                 'description' => $storeTaskDto->description,
             ]);
-        } catch (\Throwable $e) {
-            throw new StoreException('Что-то пошло не так при создании тега', 500, $e);
-        }
+//        } catch (\Throwable $e) {
+//            throw new StoreException('Что-то пошло не так при создании тега', 500, $e);
+//        }
         return $this->toDomainEntity($task);
     }
 

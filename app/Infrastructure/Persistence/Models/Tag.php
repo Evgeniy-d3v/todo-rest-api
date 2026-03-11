@@ -16,7 +16,9 @@ use Illuminate\Database\Eloquent\Collection;
 class Tag extends Model
 {
     protected $table = 'tags';
-
+    protected $fillable = [
+        'description',
+    ];
     protected $casts = [
         'description' => 'string',
     ];
