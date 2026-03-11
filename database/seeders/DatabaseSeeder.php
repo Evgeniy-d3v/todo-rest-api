@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+
+use App\Domain\Entities\TaskPriorityEnum;
+use App\Domain\Entities\TaskStatusEnum;
+use App\Infrastructure\Persistence\Models\Task;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +18,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $i = 0;
+        do {
+            Task::create([
+                'title' => 'задача ' . $i,
+                'description' => 'Описание задачи ' . $i,
+                'status' => TaskStatusEnum::NEW,
+                'priority' => TaskPriorityEnum::HIGH,
+                'due_at' => now()->addDay()->timestamp,
+            ]);
+            $i++;
+        } while ($i < 10);
     }
 }
